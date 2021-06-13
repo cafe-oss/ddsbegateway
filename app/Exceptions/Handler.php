@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 // added class
+use Exception;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,6 +14,10 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+
+use GuzzleHttp\Exception\ClientException;
+
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
@@ -90,7 +95,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ClientException){
             $message = $exception->getResponse()->getBody();
             $code = $exception->getCode();
-            return $this->errorMessage($message, 200);
+            return $this->errorMessage($message, $code);
         }
 
         // if your are running in development environment

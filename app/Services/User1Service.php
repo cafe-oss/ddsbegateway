@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Traits\ConsumesExternalService;
 
+
 class User1Service
 {
     use ConsumesExternalService;
